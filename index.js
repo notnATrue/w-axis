@@ -28,28 +28,12 @@ app.get('/course', function(req, res) {
         return dte;
     })
     .then(function(data) {
-        console.log(data)
         getCourse(data)
         .then(function(fromProm) {
             res.send(fromProm);
-        })
-
-        
-        
-        // for (i = 0; i <= 6; i++) {
-        //     fullresult[i] =  getCourse(data[i]);
-        //     if (i === 6) {
-        //         return fullresult;
-        //     };
-        // };
-    })
-    // .then(function(fullObj) {
-    //     console.log(fullObj)
-    //     res.send(fullObj);
-    // })
-    
+        });
+    });
 });
-
 
 function dates() {
     return new Promise(function(resolve, reject) {
@@ -77,24 +61,11 @@ function dates() {
 };
 
 function getCourse(date) {
-    let result = {};
-    console.log(date)
     return new Promise(function(resolve, reject) {
-        // for (i = 0; i <= 6; i++) {
-                // resolve(result);
-                // console.log('result')
-               return Promise.all([requestable(date[0]),requestable(date[1]),requestable(date[2]),requestable(date[3]),requestable(date[4]),requestable(date[5]),requestable(date[6])])
-                .then(function(data) {
-                    // result[data[i]] = data[i]
-                    resolve(data)
-                })
-            // };
-            // return request('https://api.privatbank.ua/p24api/exchange_rates?json&date=' + date[i], function(err, res, body) {
-            // console.log(date[i])
-            // console.log(res.body)
-            // result[i] = res.body;    
-            // });
-        
+        return Promise.all([requestable(date[0]),requestable(date[1]),requestable(date[2]),requestable(date[3]),requestable(date[4]),requestable(date[5]),requestable(date[6])])
+        .then(function(data) {
+            resolve(data)
+        });
     });
 };
 
@@ -108,11 +79,4 @@ function requestable(date) {
         })
 };
 
-
 app.listen(port);
-
-// function counter() {
-//     return new Promise(function(resolve, reject) {
-
-//     })
-// }
