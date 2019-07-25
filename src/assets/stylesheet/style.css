@@ -5,9 +5,22 @@ div {
     margin: 0;
     padding: 0;
 }
+button {
+    margin-right: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color:  rgb(54, 230, 54);
+    outline: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color:  rgb(77, 221, 77);
+}
 .container {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
 }
 .left {
     width: 50%;
