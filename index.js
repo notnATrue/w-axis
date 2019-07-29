@@ -22,25 +22,128 @@ app.use(express.static(__dirname + '/src'));
 
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'snkr',
-//   password : 'w-axis'
+    database : 'users',
+    host     : 'localhost',
+    user     : 'root',
+    password : ''
 });
 
-connection.connect();
+// connection.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+//     connection.query("CREATE DATABASE users", function (err, result) {
+//       if (err) throw err;
+//       console.log("Database created");
+//     });
+//   });
 
-connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The solution is: ', rows[0].solution);
-});
+// connection.end();
 
-connection.end();
+// connection.connect(function(err) {  
+//     if (err) throw err;  
+//     console.log("Connected!");  
+//     var sql = "CREATE TABLE employees (id INT, name VARCHAR(255), age INT(3), city VARCHAR(255))";  
+//     connection.query(sql, function (err, result) {  
+//     if (err) throw err;  
+//     console.log("Table created");  
+//     });  
+// });  
 
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/src/index.html')
-});
+
+// connection.query('SELECT * FROM employees', (error, result) => {
+//     if (error) throw error;
+//     console.log(result)
+// });
+
+
+// return id < 20
+let arr = [];
+
+function createArray() {
+    for (i = 0; i <= 20; i++) {
+        arr.push(i)
+    };
+    return arr;
+};
+
+createArray();
+
+let res = '(';
+function createIdMap() {
+    
+    for (i = 0; i < arr.length; i++) {
+        if (i === arr.length - 1) {
+            res += arr[i];
+        } else {
+            res += arr[i] + ',';
+        }
+    };
+    res += ')';
+    return res;
+}
+
+createIdMap();
+
+
+  connection.query( "select * from employees where id IN " + res  , function( err_user, result_user ) { 
+      console.log(result_user);
+  });
+
+// end return id < 20
+
+// create users
+
+// function createUserPool() {
+//     return new Promise(function(resolve, reject) {
+//         let userPool = [];
+//         let defaultName = 'tony'
+//         for (i = 0; i <= 49; i++) {
+//             userPool[i] = {
+//                 id : i,
+//                 name : defaultName + i,
+//                 age : i,
+//                 city : 'Kiev'
+//             };
+//         };
+//         console.log(userPool)
+//         resolve(userPool);
+//     });
+// };
+
+// function createUsers(users_) {
+//     let pool = []
+//     users_.forEach(function(item) {
+//         pool.push(create(item))
+//     })
+//     return Promise.all(pool)
+//     .then(() => console.log('all users added')) 
+// };
+
+// function create(user) {
+//     return new Promise(function(resolve, reject) {
+//     connection.query("INSERT INTO employees (id, name, age, city) VALUES(" + "'" + user.id + "'" + 
+//     ", " + "'" + user.name + "'" + 
+//     ", " + "'" +user.age + "'" + 
+//     ", " + "'" + user.city + "'" + ")",function(err) {
+//         if (err) throw err;
+//         else resolve();
+//     });
+// });
+// }
+
+// createUserPool()
+// .then( users => createUsers(users))
+// .catch(err => { if (err) throw err;});
+
+// end of users creating
+
+
 
 //privatbank
+
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/src/index.html')
+  });
 
 app.get('/course', function(req, res) {
     dates()
